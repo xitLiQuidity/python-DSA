@@ -1,0 +1,104 @@
+class Node:
+    def __init__(self,data):
+        self.data = data 
+        self.addr = None
+
+class circular_linked_list:
+    def __init__(self):
+        self.head = None
+
+    def insert_at_last(self,val):
+        newNode = Node(val)
+        if self.head is None:
+            self.head = newNode
+            newNode.addr = newNode
+        else:
+            temp = self.head
+
+    def display(self):
+            if self.head is None:
+                print("no nodes to display")
+            else:
+                temp = self.head
+                while temp:
+                    print(temp.data,end="-> ")
+                    temp = temp.addr
+                    if temp == self.head:
+                        break
+                print()
+
+    def lenght(self):
+            if self.head is None:
+                print("no nodes to count")
+            else:
+                temp = self.head
+                cnt = 0
+                while temp:
+                    cnt += 1
+                    temp = temp.addr
+                    if temp == self.head:
+                        break
+                return cnt
+            
+    def insert_at_first(self,val):
+            newNode = Node(val)
+            if self.head is None:
+                self.head = newNode
+                newNode.addr = newNode
+            else:
+                temp = self.head
+                while temp.addr != self.head:
+                    temp = temp.addr
+                temp.addr = newNode
+                newNode.addr = self.head
+                self.head = newNode
+
+    def insert_at_loc(self,val,loc):
+         newNode = Node(val)
+         if loc <= 0:
+              print("enter loc above 0")
+         elif loc == 1:
+              self.insert_at_first(val)
+         elif loc == self.lenght() + 1:
+              self.insert_at_last(val)
+         elif loc > self.lenght():
+              print("enter the loc lessathan :", self.lenght())
+         else:
+              temp = self.head
+              cnt = 1 
+              while temp.addr != None and cnt < loc - 1: 
+                   temp = temp.addr
+                   cnt += 1
+              newNode.addr = temp.addr
+              temp.addr = newNode
+        
+    def delete_at_last(self):
+         if self.head is None:
+              print("no nodes to remove")
+         else:
+              temp = self.head
+              while temp.addr.addr != self.head:
+                   temp = temp.addr
+              temp.addr = self.head
+
+    def delete_at_first(self):
+         if self.head is None:
+              print("no nodes to remove")
+         else:
+              temp = self.head
+              while temp.addr != self.head:
+                   temp = temp.addr
+              temp.addr = self.head.addr
+              self.head = self.head.addr
+
+cll = circular_linked_list()
+cll.insert_at_last('a')
+cll.insert_at_last('b')
+cll.insert_at_last('c')
+cll.display()
+cll.insert_at_first(100)
+print("total nodes in CLL ->",cll.lenght())
+cll.display()
+
+
+        
